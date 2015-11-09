@@ -1,8 +1,11 @@
 class TasksController < ApplicationController
+  before_filter :get_users
+  
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   # GET /tasks
   # GET /tasks.json
+
   def index
     @tasks = Task.all
   end
@@ -15,7 +18,6 @@ class TasksController < ApplicationController
   # GET /tasks/new
   def new
     @task = Task.new
-    @users = User.all.map {|user| [user.username, user.id]}
   end
 
   # GET /tasks/1/edit
@@ -72,4 +74,9 @@ class TasksController < ApplicationController
     def task_params
       params.require(:task).permit(:title, :description, :duration, :start_date, :end_date, :user_id, :check)
     end
+    
+    private
+    def get_users
+      @users = User.all.map {|user| [user.username, user.id]}
+    end 
 end
