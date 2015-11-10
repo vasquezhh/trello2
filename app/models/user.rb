@@ -5,4 +5,6 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
     
     has_many :tasks
+    
+    validates :title, :username, :first_name, :last_name, :email, presence:true
 end
